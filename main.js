@@ -1,6 +1,5 @@
-#!/usr/bin/env -S node --unhandled-rejections=strict
-const createPrompt = require("../prompt.js");
-const resolveConfig = require("../config.js");
+const createPrompt = require("./prompt.js");
+const resolveConfig = require("./config.js");
 
 // For the eventual `exitCode` plugin; currently unused
 const PREVIOUS_EXIT_CODE = Number(process.argv[2]);

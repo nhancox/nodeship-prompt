@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 NODESHIP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd .. && pwd)"
-NODESHIP_BIN="$NODESHIP_DIR/bin"
+NODESHIP_BIN="$NODESHIP_DIR/build"
 
 PATH="$PATH:$NODESHIP_BIN"
 export PATH
