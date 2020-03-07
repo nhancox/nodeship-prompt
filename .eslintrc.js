@@ -583,13 +583,14 @@ module.exports = {
   env: {
     browser: true,
     es2020: true,
+    jest: true,
     node: true
   },
   parserOptions: {
     // ES11 === ES2020
     ecmaVersion: 11,
     ecmaFeatures: { impliedStrict: true },
-    sourceType: "module"
+    sourceType: "script"
   },
   plugins: ["prettier"],
   rules: Object.assign(

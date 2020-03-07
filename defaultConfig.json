@@ -1,0 +1,13 @@
+{
+  "prompt": ["user", "host", "directory"],
+  "directory": {
+    "homeSymbol": "~",
+    "preposition": "in"
+  },
+  "host": {
+    "preposition": "at"
+  },
+  "newline": true,
+  "symbol": "$",
+  "user": {}
+}
