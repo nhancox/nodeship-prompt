@@ -1,8 +1,18 @@
+const color = require("../lib/color.js");
+
 module.exports = function(config) {
   let directoryPrompt = "";
 
   if (config.directory.preposition) {
-    directoryPrompt += `${config.directory.preposition} `;
+    let prepositionPrompt = `${config.directory.preposition} `;
+
+    if (config.directory.prepositionColor) {
+      prepositionPrompt = color(config.directory.prepositionColor)(
+        prepositionPrompt
+      );
+    }
+
+    directoryPrompt += prepositionPrompt;
   }
 
   let transformedPath = config.workingDirectories.current;
@@ -14,6 +24,10 @@ module.exports = function(config) {
     transformedPath = `${config.directory.homeSymbol}${transformedPath.slice(
       config.env.HOME.length
     )}`;
+  }
+
+  if (config.directory.color) {
+    transformedPath = color(config.directory.color)(transformedPath);
   }
 
   directoryPrompt += transformedPath;

@@ -17,6 +17,8 @@ const USER_CONFIG_LOCATION = XDG_CONFIG_HOME || path.join(HOME, ".config");
 const NODESHIP_CONFIG = path.join(USER_CONFIG_LOCATION, "nodeship-prompt.json");
 
 function getDefaultConfig(previousExitCode) {
+  // TODO Should be able to optimize by skipping this. No state preserved
+  // between runs so the side effects don't matter.
   const defaults = JSON.parse(JSON.stringify(defaultConfig));
 
   defaults.env = { HOME, HOSTNAME, USER };

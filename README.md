@@ -35,6 +35,13 @@ LTS).
 - Host
 - Directory
 
+## Current Features
+
+- Truecolor support
+- User plugin
+- Host plugin
+- Directory plugin
+
 ## Methodology
 
 TDD with Jest.
@@ -44,9 +51,17 @@ opposed to saving them in the actual project repository.
 
 ## Current Issues and Tasks
 
+- Optional newline printed between last output and the new prompt (restructure
+  `symbol` settings to accomodate)
 - Have `pkg` automatically build for Node.js v12 without the user requiring it
+- Consider a better structure for the configuration file
+- Better join behavior for plugin results (i.e., when a plugin returns an empty
+  string like can happen with `git` in the future)
 - JSON schema for checking the config? Or just throw errors? Maybe just a way to
   test a config to make sure it's valid and then throw in production?
+- Documentation
+- Add more to the initial about
+- Separate things like planned features and plugins into another file?
 
 ## License
 

@@ -56,4 +56,32 @@ describe("directory plugin", () => {
 
     expect(directoryPrompt).toBe(currentWorkingDirectory);
   });
+
+  test("doesn't fail when using colors", async () => {
+    const currentWorkingDirectory = "/home/pilot/Documents";
+    const home = "/home/pilot";
+    const homeSymbol = "~";
+    const directoryColor = {
+      type: "keyword",
+      value: "red"
+    };
+    const preposition = "in";
+    const prepositionColor = {
+      modifier: "bold",
+      type: "keyword",
+      value: "white"
+    };
+    const config = {
+      directory: {
+        color: directoryColor,
+        homeSymbol,
+        preposition,
+        prepositionColor
+      },
+      env: { HOME: home },
+      workingDirectories: { current: currentWorkingDirectory }
+    };
+
+    await directory(config);
+  });
 });

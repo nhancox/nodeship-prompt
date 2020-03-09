@@ -1,3 +1,4 @@
+const color = require("./lib/color.js");
 const plugins = require("./plugins/index.js");
 
 // TODO Test the final steps (mock plugins)
@@ -16,7 +17,13 @@ module.exports = async function(config) {
   }
 
   if (config.symbol) {
-    nodeshipPrompt += `${config.symbol} `;
+    let symbolPrompt = `${config.symbol} `;
+
+    if (config.symbolColor) {
+      symbolPrompt = color(config.symbolColor)(symbolPrompt);
+    }
+
+    nodeshipPrompt += symbolPrompt;
   }
 
   return nodeshipPrompt;
