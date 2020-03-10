@@ -18,7 +18,7 @@
     "url": "https://github.com/nhancox/nodeship-prompt.git"
   },
   "scripts": {
-    "build": "pkg . --options unhandled-rejections=strict --output ./build/nodeship-prompt",
+    "build": "pkg . --options unhandled-rejections=strict --output ./build/nodeship-prompt --targets node12",
     "lint:eslint": "eslint --fix",
     "lint:markdown": "markdownlint",
     "lint:prettier": "prettier --loglevel silent --write",

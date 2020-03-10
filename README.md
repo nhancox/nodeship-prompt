@@ -53,7 +53,6 @@ opposed to saving them in the actual project repository.
 
 - Optional newline printed between last output and the new prompt (restructure
   `symbol` settings to accomodate)
-- Have `pkg` automatically build for Node.js v12 without the user requiring it
 - Consider a better structure for the configuration file
 - Better join behavior for plugin results (i.e., when a plugin returns an empty
   string like can happen with `git` in the future)
