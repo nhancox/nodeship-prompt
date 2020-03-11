@@ -16,6 +16,25 @@ module.exports = {
       value: "white"
     }
   },
+  git: {
+    branchColor: {
+      modifier: "bold",
+      type: "hex",
+      value: "#5f5faf"
+    },
+    flag: true,
+    flagColor: {
+      modifier: "bold",
+      type: "hex",
+      value: "#0087ff"
+    },
+    preposition: "on",
+    prepositionColor: {
+      modifier: "bold",
+      type: "keyword",
+      value: "white"
+    }
+  },
   host: {
     color: {
       modifier: "bold",
@@ -30,7 +49,7 @@ module.exports = {
     }
   },
   newline: true,
-  prompt: ["user", "host", "directory"],
+  prompt: ["user", "host", "directory", "git"],
   symbol: "$",
   symbolColor: {
     modifier: "bold",

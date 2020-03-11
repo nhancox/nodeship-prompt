@@ -22,7 +22,6 @@ LTS).
 
 ### Proposed
 
-- Git
 - Languages (Node.js)
 - Jobs
 - Execution time
@@ -31,9 +30,12 @@ LTS).
 
 ### Completed
 
+(At least at an MVP level)
+
 - User
 - Host
 - Directory
+- Git
 
 ## Current Features
 
@@ -42,15 +44,13 @@ LTS).
 - Host plugin
 - Directory plugin
 
-## Methodology
-
-TDD with Jest.
-
-End game for plugins like `git` is to spin up the test files every time as
-opposed to saving them in the actual project repository.
-
 ## Current Issues and Tasks
 
+- Make sure that the executable works correctly with `nodegit`. Discussion in
+  `pkg` makes it sound like the team has accounted for it and tests against the
+  module, but running the build brings up an error about having to include the
+  addon with the distributed executable. Everything is currently running
+  correctly on my machine with no extra steps, though.
 - Optional newline printed between last output and the new prompt (restructure
   `symbol` settings to accomodate)
 - Consider a better structure for the configuration file
