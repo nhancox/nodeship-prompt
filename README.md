@@ -15,27 +15,7 @@ existing `PROMPT_COMMAND`.
 
 `npm run build` creates a binary using the `pkg` module, allowing for easy
 distribution and avoiding conflicts with system Node.js versions and version
-managers. `nodeship-prompt` currently requires Node.js v12 (the most recent
-LTS).
-
-## Plugins
-
-### Proposed
-
-- Languages (Node.js)
-- Jobs
-- Execution time
-- Date
-- Exit code
-
-### Completed
-
-(At least at an MVP level)
-
-- User
-- Host
-- Directory
-- Git
+managers.
 
 ## Current Features
 
@@ -43,6 +23,15 @@ LTS).
 - User plugin
 - Host plugin
 - Directory plugin
+- Git plugin
+
+## Proposed Plugins
+
+- Languages (Node.js)
+- Jobs
+- Execution time
+- Date
+- Exit code
 
 ## Current Issues and Tasks
 
