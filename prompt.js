@@ -17,10 +17,10 @@ module.exports = async function(config) {
   }
 
   if (config.symbol) {
-    let symbolPrompt = `${config.symbol} `;
+    let symbolPrompt = `${config.symbol.value} `;
 
-    if (config.symbolColor) {
-      symbolPrompt = color(config.symbolColor)(symbolPrompt);
+    if (config.symbol.color) {
+      symbolPrompt = color(config.symbol.color)(symbolPrompt);
     }
 
     nodeshipPrompt += symbolPrompt;

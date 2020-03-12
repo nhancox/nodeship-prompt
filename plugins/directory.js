@@ -4,10 +4,10 @@ module.exports = function(config) {
   let directoryPrompt = "";
 
   if (config.directory.preposition) {
-    let prepositionPrompt = `${config.directory.preposition} `;
+    let prepositionPrompt = `${config.directory.preposition.value} `;
 
-    if (config.directory.prepositionColor) {
-      prepositionPrompt = color(config.directory.prepositionColor)(
+    if (config.directory.preposition.color) {
+      prepositionPrompt = color(config.directory.preposition.color)(
         prepositionPrompt
       );
     }

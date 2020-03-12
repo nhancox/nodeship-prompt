@@ -17,7 +17,7 @@ describe("directory plugin", () => {
     const currentWorkingDirectory = "/var/data/nodeship";
     const preposition = "in";
     const config = {
-      directory: { preposition },
+      directory: { preposition: { value: preposition } },
       workingDirectories: { current: currentWorkingDirectory }
     };
 
@@ -75,8 +75,7 @@ describe("directory plugin", () => {
       directory: {
         color: directoryColor,
         homeSymbol,
-        preposition,
-        prepositionColor
+        preposition: { color: prepositionColor, value: preposition }
       },
       env: { HOME: home },
       workingDirectories: { current: currentWorkingDirectory }

@@ -18,7 +18,7 @@ describe("host plugin", () => {
     const preposition = "at";
     const config = {
       env: { HOSTNAME: hostName },
-      host: { preposition }
+      host: { preposition: { value: preposition } }
     };
 
     const hostPrompt = await host(config);
@@ -41,8 +41,10 @@ describe("host plugin", () => {
       env: { HOSTNAME: hostName },
       host: {
         color: hostColor,
-        preposition,
-        prepositionColor
+        preposition: {
+          color: prepositionColor,
+          value: preposition
+        }
       }
     };
 

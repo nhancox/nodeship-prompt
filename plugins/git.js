@@ -101,11 +101,13 @@ module.exports = async function(config) {
     getStatus(repository)
   ]);
 
-  if (config.git.preposition) {
-    let prepositionPrompt = `${config.git.preposition} `;
+  if (config.git.branch.preposition) {
+    let prepositionPrompt = `${config.git.branch.preposition.value} `;
 
-    if (config.git.prepositionColor) {
-      prepositionPrompt = color(config.git.prepositionColor)(prepositionPrompt);
+    if (config.git.branch.preposition.color) {
+      prepositionPrompt = color(config.git.branch.preposition.color)(
+        prepositionPrompt
+      );
     }
 
     gitPrompt += prepositionPrompt;
@@ -113,18 +115,18 @@ module.exports = async function(config) {
 
   let branchPrompt = currentBranch;
 
-  if (config.git.branchColor) {
-    branchPrompt = color(config.git.branchColor)(branchPrompt);
+  if (config.git.branch.color) {
+    branchPrompt = color(config.git.branch.color)(branchPrompt);
   }
 
   gitPrompt += branchPrompt;
 
-  if (config.git.flag) {
+  if (config.git.status) {
     let flagPrompt = getFlagPrompt(currentStatus);
 
     if (flagPrompt.length) {
-      if (config.git.flagColor) {
-        flagPrompt = color(config.git.flagColor)(flagPrompt);
+      if (config.git.status.color) {
+        flagPrompt = color(config.git.status.color)(flagPrompt);
       }
 
       gitPrompt += flagPrompt;

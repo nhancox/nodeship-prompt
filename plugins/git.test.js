@@ -97,7 +97,7 @@ afterAll(async () => {
 
 test("prints the correct branch name", async () => {
   const config = {
-    git: {},
+    git: { branch: {} },
     workingDirectories: {
       current: CLEAN_REPO_PATH
     }
@@ -110,7 +110,7 @@ test("prints the correct branch name", async () => {
 
 test("doesn't show flags on a clean tree", async () => {
   const config = {
-    git: { flag: true },
+    git: { branch: {}, status: {} },
     workingDirectories: {
       current: CLEAN_REPO_PATH
     }
@@ -124,7 +124,7 @@ test("doesn't show flags on a clean tree", async () => {
 test("includes a preposition when specified", async () => {
   const preposition = "on";
   const config = {
-    git: { preposition },
+    git: { branch: { preposition: { value: preposition } } },
     workingDirectories: {
       current: CLEAN_REPO_PATH
     }
@@ -138,7 +138,7 @@ test("includes a preposition when specified", async () => {
 test("prints the correct status flags", async () => {
   const statusFlags = "[+!?]";
   const config = {
-    git: { flag: true },
+    git: { branch: {}, status: {} },
     workingDirectories: { current: DIRTY_REPO_PATH }
   };
 
@@ -163,11 +163,16 @@ test("doesn't fail when using colors", async () => {
   };
   const config = {
     git: {
-      branchColor,
-      flag: true,
-      flagColor,
-      preposition,
-      prepositionColor
+      branch: {
+        color: branchColor,
+        preposition: {
+          color: prepositionColor,
+          value: preposition
+        }
+      },
+      status: {
+        color: flagColor
+      }
     },
     workingDirectories: {
       current: DIRTY_REPO_PATH

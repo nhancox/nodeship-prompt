@@ -4,10 +4,10 @@ module.exports = function(config) {
   let hostPrompt = "";
 
   if (config.host.preposition) {
-    let prepositionPrompt = `${config.host.preposition} `;
+    let prepositionPrompt = `${config.host.preposition.value} `;
 
-    if (config.host.prepositionColor) {
-      prepositionPrompt = color(config.host.prepositionColor)(
+    if (config.host.preposition.color) {
+      prepositionPrompt = color(config.host.preposition.color)(
         prepositionPrompt
       );
     }
