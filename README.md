@@ -55,7 +55,6 @@ LTS).
   test a config to make sure it's valid and then throw in production?
 - Documentation
 - Add more to the initial about
-- Separate things like planned features and plugins into another file?
 
 ## License
 
