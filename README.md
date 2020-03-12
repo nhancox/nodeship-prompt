@@ -51,8 +51,6 @@ LTS).
   module, but running the build brings up an error about having to include the
   addon with the distributed executable. Everything is currently running
   correctly on my machine with no extra steps, though.
-- Optional newline printed between last output and the new prompt (restructure
-  `symbol` settings to accomodate)
 - JSON schema for checking the config? Or just throw errors? Maybe just a way to
   test a config to make sure it's valid and then throw in production?
 - Documentation

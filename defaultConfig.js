@@ -1,6 +1,3 @@
-// Add `newline` to symbol and then keep the `newline` at the top level to mean
-// a line between the previous output and the current prompt
-
 // Colors are from my current personal prompt written in Bash, which in turn are
 // Solarized Dark, pulled from the "HEX" values on the official repo:
 // https://github.com/altercation/solarized/tree/master/iterm2-colors-solarized#the-values
@@ -68,6 +65,7 @@ module.exports = {
       type: "keyword",
       value: "white"
     },
+    newline: true,
     value: "$"
   },
   user: {

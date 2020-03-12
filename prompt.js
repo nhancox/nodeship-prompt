@@ -3,6 +3,12 @@ const plugins = require("./plugins/index.js");
 
 // TODO Test the final steps (mock plugins)
 module.exports = async function(config) {
+  let nodeshipPrompt = "";
+
+  if (config.newline) {
+    nodeshipPrompt += "\n";
+  }
+
   let pluginOperations = [...config.prompt];
   pluginOperations = pluginOperations.map(async (plugin) => {
     const pluginResult = await plugins[plugin](config);
@@ -10,19 +16,22 @@ module.exports = async function(config) {
   });
   const pluginResults = await Promise.all(pluginOperations);
 
-  let nodeshipPrompt = "";
+  let resultPrompt = "";
   pluginResults.forEach((result) => {
     if (result.length) {
-      nodeshipPrompt += `${nodeshipPrompt.length ? " " : ""}${result}`;
+      resultPrompt += `${resultPrompt.length ? " " : ""}${result}`;
     }
   });
-
-  if (config.newline) {
-    nodeshipPrompt += "\n";
-  }
+  nodeshipPrompt += resultPrompt;
 
   if (config.symbol) {
-    let symbolPrompt = `${config.symbol.value} `;
+    let symbolPrompt = "";
+
+    if (config.symbol.newline) {
+      symbolPrompt += "\n";
+    }
+
+    symbolPrompt += `${config.symbol.value} `;
 
     if (config.symbol.color) {
       symbolPrompt = color(config.symbol.color)(symbolPrompt);
