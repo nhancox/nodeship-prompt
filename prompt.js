@@ -10,7 +10,12 @@ module.exports = async function(config) {
   });
   const pluginResults = await Promise.all(pluginOperations);
 
-  let nodeshipPrompt = pluginResults.join(" ");
+  let nodeshipPrompt = "";
+  pluginResults.forEach((result) => {
+    if (result.length) {
+      nodeshipPrompt += `${nodeshipPrompt.length ? " " : ""}${result}`;
+    }
+  });
 
   if (config.newline) {
     nodeshipPrompt += "\n";

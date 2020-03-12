@@ -53,8 +53,6 @@ LTS).
   correctly on my machine with no extra steps, though.
 - Optional newline printed between last output and the new prompt (restructure
   `symbol` settings to accomodate)
-- Better join behavior for plugin results (i.e., when a plugin returns an empty
-  string like can happen with `git` in the future)
 - JSON schema for checking the config? Or just throw errors? Maybe just a way to
   test a config to make sure it's valid and then throw in production?
 - Documentation
