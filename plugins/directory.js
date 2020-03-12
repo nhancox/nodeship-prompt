@@ -15,14 +15,14 @@ module.exports = function(config) {
     directoryPrompt += prepositionPrompt;
   }
 
-  let transformedPath = config.workingDirectories.current;
+  let transformedPath = config.environment.currentWorkingDirectory.path;
 
   if (
     config.directory.homeSymbol &&
-    transformedPath.startsWith(config.env.HOME)
+    transformedPath.startsWith(config.environment.home)
   ) {
     transformedPath = `${config.directory.homeSymbol}${transformedPath.slice(
-      config.env.HOME.length
+      config.environment.home.length
     )}`;
   }
 

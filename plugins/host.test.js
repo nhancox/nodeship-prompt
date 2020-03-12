@@ -4,7 +4,7 @@ describe("host plugin", () => {
   test("prints the correct host name", async () => {
     const hostName = "nodeship";
     const config = {
-      env: { HOSTNAME: hostName },
+      environment: { host: hostName },
       host: {}
     };
 
@@ -17,7 +17,7 @@ describe("host plugin", () => {
     const hostName = "nodeship";
     const preposition = "at";
     const config = {
-      env: { HOSTNAME: hostName },
+      environment: { host: hostName },
       host: { preposition: { value: preposition } }
     };
 
@@ -38,7 +38,7 @@ describe("host plugin", () => {
       value: "blue"
     };
     const config = {
-      env: { HOSTNAME: hostName },
+      environment: { host: hostName },
       host: {
         color: hostColor,
         preposition: {

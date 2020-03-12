@@ -90,7 +90,9 @@ function getFlagPrompt(currentStatus) {
 module.exports = async function(config) {
   let gitPrompt = "";
 
-  const repository = await getRepository(config.workingDirectories.current);
+  const repository = await getRepository(
+    config.environment.currentWorkingDirectory.path
+  );
 
   if (!repository) {
     return gitPrompt;

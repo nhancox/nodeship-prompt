@@ -15,7 +15,7 @@ module.exports = function(config) {
     hostPrompt += prepositionPrompt;
   }
 
-  let hostName = config.env.HOSTNAME;
+  let hostName = config.environment.host;
 
   if (config.host.color) {
     hostName = color(config.host.color)(hostName);

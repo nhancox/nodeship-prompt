@@ -97,10 +97,8 @@ afterAll(async () => {
 
 test("prints the correct branch name", async () => {
   const config = {
-    git: { branch: {} },
-    workingDirectories: {
-      current: CLEAN_REPO_PATH
-    }
+    environment: { currentWorkingDirectory: { path: CLEAN_REPO_PATH } },
+    git: { branch: {} }
   };
 
   const gitPrompt = await gitPlugin(config);
@@ -110,10 +108,8 @@ test("prints the correct branch name", async () => {
 
 test("doesn't show flags on a clean tree", async () => {
   const config = {
-    git: { branch: {}, status: {} },
-    workingDirectories: {
-      current: CLEAN_REPO_PATH
-    }
+    environment: { currentWorkingDirectory: { path: CLEAN_REPO_PATH } },
+    git: { branch: {}, status: {} }
   };
 
   const gitPrompt = await gitPlugin(config);
@@ -124,10 +120,8 @@ test("doesn't show flags on a clean tree", async () => {
 test("includes a preposition when specified", async () => {
   const preposition = "on";
   const config = {
-    git: { branch: { preposition: { value: preposition } } },
-    workingDirectories: {
-      current: CLEAN_REPO_PATH
-    }
+    environment: { currentWorkingDirectory: { path: CLEAN_REPO_PATH } },
+    git: { branch: { preposition: { value: preposition } } }
   };
 
   const gitPrompt = await gitPlugin(config);
@@ -138,8 +132,8 @@ test("includes a preposition when specified", async () => {
 test("prints the correct status flags", async () => {
   const statusFlags = "[+!?]";
   const config = {
-    git: { branch: {}, status: {} },
-    workingDirectories: { current: DIRTY_REPO_PATH }
+    environment: { currentWorkingDirectory: { path: DIRTY_REPO_PATH } },
+    git: { branch: {}, status: {} }
   };
 
   const gitPrompt = await gitPlugin(config);
@@ -162,6 +156,7 @@ test("doesn't fail when using colors", async () => {
     value: "blue"
   };
   const config = {
+    environment: { currentWorkingDirectory: { path: DIRTY_REPO_PATH } },
     git: {
       branch: {
         color: branchColor,
@@ -173,9 +168,6 @@ test("doesn't fail when using colors", async () => {
       status: {
         color: flagColor
       }
-    },
-    workingDirectories: {
-      current: DIRTY_REPO_PATH
     }
   };
 

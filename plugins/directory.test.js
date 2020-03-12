@@ -5,7 +5,11 @@ describe("directory plugin", () => {
     const currentWorkingDirectory = "/var/data/nodeship";
     const config = {
       directory: {},
-      workingDirectories: { current: currentWorkingDirectory }
+      environment: {
+        currentWorkingDirectory: {
+          path: currentWorkingDirectory
+        }
+      }
     };
 
     const directoryPrompt = await directory(config);
@@ -18,7 +22,9 @@ describe("directory plugin", () => {
     const preposition = "in";
     const config = {
       directory: { preposition: { value: preposition } },
-      workingDirectories: { current: currentWorkingDirectory }
+      environment: {
+        currentWorkingDirectory: { path: currentWorkingDirectory }
+      }
     };
 
     const directoryPrompt = await directory(config);
@@ -33,8 +39,10 @@ describe("directory plugin", () => {
     const homeSymbol = "~";
     const config = {
       directory: { homeSymbol },
-      env: { HOME: home },
-      workingDirectories: { current: currentWorkingDirectory }
+      environment: {
+        currentWorkingDirectory: { path: currentWorkingDirectory },
+        home
+      }
     };
 
     const directoryPrompt = await directory(config);
@@ -48,8 +56,10 @@ describe("directory plugin", () => {
     const homeSymbol = "~";
     const config = {
       directory: { homeSymbol },
-      env: { HOME: home },
-      workingDirectories: { current: currentWorkingDirectory }
+      environment: {
+        currentWorkingDirectory: { path: currentWorkingDirectory },
+        home
+      }
     };
 
     const directoryPrompt = await directory(config);
@@ -77,8 +87,10 @@ describe("directory plugin", () => {
         homeSymbol,
         preposition: { color: prepositionColor, value: preposition }
       },
-      env: { HOME: home },
-      workingDirectories: { current: currentWorkingDirectory }
+      environment: {
+        currentWorkingDirectory: { path: currentWorkingDirectory },
+        home
+      }
     };
 
     await directory(config);

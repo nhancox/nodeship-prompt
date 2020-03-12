@@ -3,7 +3,7 @@ const user = require("./user.js");
 describe("user plugin", () => {
   test("prints the correct user", async () => {
     const username = "pilot";
-    const config = { env: { USER: username }, user: {} };
+    const config = { environment: { user: username }, user: {} };
 
     const userPrompt = await user(config);
 
@@ -17,7 +17,7 @@ describe("user plugin", () => {
       value: "yellow"
     };
     const config = {
-      env: { USER: username },
+      environment: { user: username },
       user: { color }
     };
 
