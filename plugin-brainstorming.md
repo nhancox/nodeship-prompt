@@ -19,10 +19,6 @@ But should this be by default or only enabled when something that requires it is
 present (which could be pretty tricky to implement)? Leaning towards the default
 option.
 
-### nodejs
-
-- Current directory contains `package.json`, `node_modules` or `.js`
-
 ### php
 
 - Current directory contains `composer.json` or `.php`

@@ -24,10 +24,11 @@ managers.
 - Host plugin
 - Directory plugin
 - Git plugin
+- Node.js plugin
 
 ## Proposed Plugins
 
-- Languages (Node.js)
+- Languages
 - Jobs
 - Execution time
 - Date

@@ -58,7 +58,23 @@ module.exports = {
     }
   },
   newline: true,
-  prompt: ["user", "host", "directory", "git"],
+  nodejs: {
+    color: {
+      modifier: "bold",
+      type: "hex",
+      value: "#5f8700"
+    },
+    preposition: {
+      color: {
+        modifier: "bold",
+        type: "keyword",
+        value: "white"
+      },
+      value: "using"
+    },
+    symbol: "Node"
+  },
+  prompt: ["user", "host", "directory", "git", "nodejs"],
   symbol: {
     color: {
       modifier: "bold",
