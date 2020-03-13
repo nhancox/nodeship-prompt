@@ -1,7 +1,9 @@
-// These tests require you to have the proper Node.js version installed, so by
-// default they're placed into a `describe` block with `skip`
+// These tests require you to have the proper Node.js version installed.
+// For other languages this would mean that the tests are skipped by default,
+// but this is a Node.js project, so it can be expected. Just in case, the tests
+// are encased in a `describe` block to easily disable.
 // If you use `asdf-vm`, the `.tool-versions` file that is read ensures that the
-// right version will be used in the project directory
+// right version will be used in the project directory.
 
 const fs = require("fs").promises;
 const path = require("path");
@@ -11,12 +13,16 @@ const nodejs = require("./nodejs.js");
 let NODESHIP_NODE_VERSION;
 const PROJECT_PATH = path.resolve(__dirname, "..");
 
-describe.skip("nodejs tests (when Node.js is installed)", () => {
+describe("nodejs tests (when Node.js is installed)", () => {
   beforeAll(async () => {
     const toolVersionFile = path.resolve(PROJECT_PATH, ".tool-versions");
     let toolVersions = await fs.readFile(toolVersionFile, "utf8");
-    toolVersions = toolVersions.replace("\n", "");
-    NODESHIP_NODE_VERSION = toolVersions.split(" ")[1];
+    toolVersions = toolVersions.split("\n");
+    toolVersions.pop();
+    const nodeVersion = toolVersions.find((entry) => {
+      return entry.split(" ")[0] === "nodejs";
+    });
+    NODESHIP_NODE_VERSION = nodeVersion.split(" ")[1];
   });
 
   // Note that this is the same as the next test. Wanted to make the different
