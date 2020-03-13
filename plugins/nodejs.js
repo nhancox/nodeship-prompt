@@ -20,7 +20,7 @@ function checkExtensions(files) {
   let match = false;
   files.forEach((file) => {
     NODE_EXTENSIONS.forEach((extension) => {
-      if (file.endsWith(extension)) {
+      if (!file.startsWith(".") && file.endsWith(extension)) {
         match = true;
       }
     });
