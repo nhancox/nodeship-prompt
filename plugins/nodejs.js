@@ -41,7 +41,7 @@ function checkFiles(files) {
 function getNodeVersion(currentWorkingDirectory) {
   return new Promise((resolve) => {
     exec(
-      "node --version",
+      "/usr/bin/env node --version",
       { cwd: currentWorkingDirectory },
       (err, stdout, stderr) => {
         if (err || stderr) {
