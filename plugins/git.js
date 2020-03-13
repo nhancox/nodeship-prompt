@@ -1,3 +1,4 @@
+const { exec } = require("child_process");
 const fs = require("fs");
 
 const git = require("isomorphic-git");
@@ -10,23 +11,33 @@ async function getCurrentBranchName(repository) {
   return branch || "";
 }
 
-// TODO (PERF) This is a very slow solution because it goes through every single
-// file. Any way to speed it up?
-async function getStatus(repository) {
-  const fileStatuses = await git.statusMatrix({
-    dir: repository,
-    fs
+// On a clean repo with 129 files and `tokei`-measured ~39k LOC:
+// `git status`                  2.3ms (measured with `hyperfine`)
+// `isomorphic-git.statusMatrix` 263ms (measured with `console.time` in code)
+// New method                    7-8ms (measured with `console.time` in code)
+// Why? `statusMatrix` examines every file in the directory structure.
+// Considering this is for a shell prompt, definitely a necessary optimization.
+// A dependency on `git` isn't a big deal considering the use case.
+function getStatus(repository) {
+  return new Promise((resolve) => {
+    exec(
+      "/usr/bin/env git status --porcelain",
+      { cwd: repository },
+      (err, stdout, stderr) => {
+        if (err || stderr) {
+          return resolve([]);
+        }
+
+        const results = stdout.split("\n");
+        results.pop();
+        resolve(results);
+      }
+    );
   });
+}
 
-  // HEAD:    0 absent, 1 present
-  // WORKDIR: 0 absent, 1 =HEAD, 2 !=HEAD
-  // STAGE:   0 absent, 1 =HEAD, 2 =WORKDIR, 3 !=WORKDIR
-
-  // eslint-disable-next-line
-  const FILE = 0;
-  const HEAD = 1;
-  const WORKDIR = 2;
-  const STAGE = 3;
+async function parseStatus(repository) {
+  const currentStatus = await getStatus(repository);
 
   const statusMap = {
     stagedChanges: 0,
@@ -34,17 +45,43 @@ async function getStatus(repository) {
     unstagedChanges: 0
   };
 
-  for (const file of fileStatuses) {
-    if (file[WORKDIR] !== file[STAGE]) {
-      if (file[HEAD] === 0) {
-        statusMap.unstagedAdditions++;
-      } else {
-        statusMap.unstagedChanges++;
-      }
-    } else if (file[HEAD] !== file[STAGE]) {
-      statusMap.stagedChanges++;
+  // Currently in "short format": XY FILEPATH
+  const STAGED_CHANGES = [
+    /[ACMR][\sDM]/u, // Added, copied, modified or renamed in index
+    /[D]./u // Deleted from index
+  ];
+  const UNSTAGED_ADDITIONS = "??";
+  const UNSTAGED_CHANGES = [
+    /[\sARCM][DM]/u, // Deleted in work tree or work tree changed since index
+    /[\sD][CR]/u // Copied or renamed in work tree
+  ];
+  currentStatus.forEach((statusEntry) => {
+    const state = statusEntry.slice(0, 2);
+    let searching = true;
+
+    if (state === UNSTAGED_ADDITIONS) {
+      statusMap.unstagedAdditions++;
+      searching = false;
     }
-  }
+
+    if (searching) {
+      UNSTAGED_CHANGES.forEach((regex) => {
+        if (searching && regex.test(state)) {
+          statusMap.unstagedChanges++;
+          searching = false;
+        }
+      });
+    }
+
+    if (searching) {
+      STAGED_CHANGES.forEach((regex) => {
+        if (searching && regex.test(state)) {
+          statusMap.stagedChanges++;
+          searching = false;
+        }
+      });
+    }
+  });
 
   return statusMap;
 }
@@ -65,7 +102,7 @@ module.exports = async function(config) {
   const gitOperations = [getCurrentBranchName(repository)];
 
   if (config.git.status) {
-    gitOperations.push(getStatus(repository));
+    gitOperations.push(parseStatus(repository));
   }
 
   const operationResults = await Promise.all(gitOperations);

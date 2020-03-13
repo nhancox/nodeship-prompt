@@ -119,6 +119,7 @@ test("includes a preposition when specified", async () => {
   expect(gitPrompt).toBe(`${preposition} ${CLEAN_BRANCH_NAME}`);
 });
 
+// TODO Can make more comprehensive tests for this
 test("prints the correct status flags", async () => {
   const statusFlags = "[+!?]";
   const config = {
