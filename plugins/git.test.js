@@ -1,8 +1,8 @@
-const fs = require("fs").promises;
+const fs = require("fs");
 const path = require("path");
 
 const del = require("del");
-const Git = require("nodegit");
+const git = require("isomorphic-git");
 
 const gitPlugin = require("./git.js");
 
@@ -24,71 +24,61 @@ const DIRTY_REPO = "dirty-repo";
 const DIRTY_REPO_PATH = path.join(TEMP_GIT_FOLDER, DIRTY_REPO);
 
 async function createRepoWithCommit(repoName) {
-  const isBare = 0;
   const repoPath = path.join(TEMP_GIT_FOLDER, repoName);
-  const repository = await Git.Repository.init(repoPath, isBare);
+  await git.init({ dir: repoPath, fs });
 
   const fileName = INITIAL_FILE;
   const filePath = path.join(repoPath, fileName);
   const fileContent = "Hello, World!\n";
-  await fs.writeFile(filePath, fileContent);
+  await fs.promises.writeFile(filePath, fileContent);
 
-  const index = await repository.refreshIndex();
-  await index.addByPath(fileName);
-  await index.write();
-  const oid = await index.writeTree();
+  await git.add({ dir: repoPath, filepath: fileName, fs });
 
-  const author = Git.Signature.now("Pilot", "pilot@example.com");
-  const committer = Git.Signature.now("Pilot", "pilot@example.com");
+  const author = {
+    email: "pilot@example.com",
+    name: "Pilot"
+  };
   const message = "Initial commit";
-  await repository.createCommit("HEAD", author, committer, message, oid, []);
+  await git.commit({ author, dir: repoPath, fs, message });
 }
 
 async function checkoutNewBranch(repoPath, branchName) {
-  const repository = await Git.Repository.open(repoPath);
-  const headCommit = await repository.getHeadCommit();
-  const force = false;
-  const branchReference = await repository.createBranch(
-    branchName,
-    headCommit,
-    force
-  );
-  await repository.checkoutBranch(branchReference);
+  await git.branch({ checkout: true, dir: repoPath, fs, ref: branchName });
 }
 
-async function dirtyRepo(repoName) {
-  const repoPath = path.join(TEMP_GIT_FOLDER, repoName);
-  const repository = await Git.Repository.open(repoPath);
-
-  // TODO (PERF) run these file operations in parallel
-
+async function dirtyRepo(repoPath) {
   const modifiedFileName = INITIAL_FILE;
   const modifiedFilePath = path.join(repoPath, modifiedFileName);
   const appendText = "MODIFIED\n";
-  await fs.appendFile(modifiedFilePath, appendText);
 
   const stagedFileName = "staged.txt";
   const stagedFilePath = path.join(repoPath, stagedFileName);
-  await fs.writeFile(stagedFilePath, stagedFileName);
-  const index = await repository.refreshIndex();
-  await index.addByPath(stagedFileName);
-  await index.write();
 
   const unstagedFileName = "unstaged.txt";
   const unstagedFilePath = path.join(repoPath, unstagedFileName);
-  await fs.writeFile(unstagedFilePath, unstagedFileName);
+
+  await Promise.all([
+    fs.appendFile(modifiedFilePath, appendText),
+    fs.writeFile(stagedFilePath, stagedFileName),
+    fs.writeFile(unstagedFilePath, unstagedFileName)
+  ]);
+
+  await git.add({ dir: repoPath, filepath: stagedFileName, fs });
+}
+
+async function setupCleanRepo() {
+  await createRepoWithCommit(CLEAN_REPO);
+  await checkoutNewBranch(CLEAN_REPO_PATH, CLEAN_BRANCH_NAME);
+}
+
+async function setupDirtyRepo() {
+  await createRepoWithCommit(DIRTY_REPO);
+  await dirtyRepo(DIRTY_REPO_PATH);
 }
 
 beforeAll(async () => {
-  await fs.mkdir(TEMP_GIT_FOLDER);
-  await Promise.all([
-    createRepoWithCommit(CLEAN_REPO),
-    createRepoWithCommit(DIRTY_REPO)
-  ]);
-  await Promise.all([
-    checkoutNewBranch(CLEAN_REPO_PATH, CLEAN_BRANCH_NAME),
-    dirtyRepo(DIRTY_REPO)
-  ]);
+  await fs.promises.mkdir(TEMP_GIT_FOLDER);
+  await Promise.all([setupCleanRepo(), setupDirtyRepo()]);
 });
 
 afterAll(async () => {
@@ -106,7 +96,7 @@ test("prints the correct branch name", async () => {
   expect(gitPrompt).toBe(CLEAN_BRANCH_NAME);
 });
 
-test("doesn't show flags on a clean tree", async () => {
+test("doesn't show status flags on a clean tree", async () => {
   const config = {
     environment: { currentWorkingDirectory: { path: CLEAN_REPO_PATH } },
     git: { branch: {}, status: {} }

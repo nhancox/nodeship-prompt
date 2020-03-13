@@ -36,11 +36,6 @@ managers.
 
 ## Current Issues and Tasks
 
-- Make sure that the executable works correctly with `nodegit`. Discussion in
-  `pkg` makes it sound like the team has accounted for it and tests against the
-  module, but running the build brings up an error about having to include the
-  addon with the distributed executable. Everything is currently running
-  correctly on my machine with no extra steps, though.
 - JSON schema for checking the config? Or just throw errors? Maybe just a way to
   test a config to make sure it's valid and then throw in production?
 - Documentation

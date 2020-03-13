@@ -1,107 +1,81 @@
-const Git = require("nodegit");
+const fs = require("fs");
+
+const git = require("isomorphic-git");
 
 const color = require("../lib/color.js");
 
-async function getRepository(repoPath) {
-  const repository = await Git.Repository.open(repoPath).catch(() => {
-    return false;
-  });
-  return repository;
-}
-
-// TODO: Test cases where HEAD isn't a symbolic ref to see if the `shorthand` is
-// a short hash
 async function getCurrentBranchName(repository) {
-  // `getCurrentBranch` and `head` do the same thing
-  const branch = await repository.getCurrentBranch();
-  return branch.shorthand();
+  const branch = await git.currentBranch({ dir: repository, fs });
+  // TODO: Returns `undefined` if HEAD is detached; maybe get shorthand hash?
+  return branch || "";
 }
 
+// TODO (PERF) This is a very slow solution because it goes through every single
+// file. Any way to speed it up?
 async function getStatus(repository) {
-  const statuses = await repository.getStatus();
-  // `INDEX` represents status of file in index relative to HEAD
-  // `WT` represents status of file in working directory relative to index
-  // https://libgit2.org/libgit2/#HEAD/type/git_status_t
+  const fileStatuses = await git.statusMatrix({
+    dir: repository,
+    fs
+  });
+
+  // HEAD:    0 absent, 1 present
+  // WORKDIR: 0 absent, 1 =HEAD, 2 !=HEAD
+  // STAGE:   0 absent, 1 =HEAD, 2 =WORKDIR, 3 !=WORKDIR
+
+  // eslint-disable-next-line
+  const FILE = 0;
+  const HEAD = 1;
+  const WORKDIR = 2;
+  const STAGE = 3;
+
   const statusMap = {
-    INDEX_DELETED: 0,
-    INDEX_MODIFIED: 0,
-    INDEX_NEW: 0,
-    INDEX_RENAMED: 0,
-    INDEX_TYPECHANGE: 0,
-    WT_DELETED: 0,
-    WT_MODIFIED: 0,
-    WT_NEW: 0,
-    WT_RENAMED: 0,
-    WT_TYPECHANGE: 0,
-    WT_UNREADABLE: 0
+    stagedChanges: 0,
+    unstagedAdditions: 0,
+    unstagedChanges: 0
   };
-  statuses.forEach((statusEntry) => {
-    const entryStatus = statusEntry.status();
-    if (entryStatus in statusMap) {
-      statusMap[entryStatus]++;
+
+  for (const file of fileStatuses) {
+    if (file[WORKDIR] !== file[STAGE]) {
+      if (file[HEAD] === 0) {
+        statusMap.unstagedAdditions++;
+      } else {
+        statusMap.unstagedChanges++;
+      }
+    } else if (file[HEAD] !== file[STAGE]) {
+      statusMap.stagedChanges++;
     }
-  });
+  }
+
   return statusMap;
-}
-
-// TODO detect stash entries (proposed flag: "$")
-// Just have to check `Stash.foreach`?
-// TODO support custom flag symbols
-function getFlagPrompt(currentStatus) {
-  let flagPrompt = "";
-
-  const INDEX_STATUSES = [
-    "INDEX_DELETED",
-    "INDEX_MODIFIED",
-    "INDEX_NEW",
-    "INDEX_RENAMED",
-    "INDEX_TYPECHANGE"
-  ];
-  let indexChanges = 0;
-  INDEX_STATUSES.forEach((indexStatus) => {
-    indexChanges += currentStatus[indexStatus];
-  });
-
-  if (indexChanges > 0) {
-    flagPrompt += "+";
-  }
-
-  const TRACKED_WT_STATUSES = ["WT_DELETED", "WT_MODIFIED", "WT_RENAMED"];
-  let trackedChanges = 0;
-  TRACKED_WT_STATUSES.forEach((trackedWTStatus) => {
-    trackedChanges += currentStatus[trackedWTStatus];
-  });
-
-  if (trackedChanges > 0) {
-    flagPrompt += "!";
-  }
-
-  if (currentStatus.WT_NEW > 0) {
-    flagPrompt += "?";
-  }
-
-  if (flagPrompt.length) {
-    flagPrompt = ` [${flagPrompt}]`;
-  }
-
-  return flagPrompt;
 }
 
 module.exports = async function(config) {
   let gitPrompt = "";
 
-  const repository = await getRepository(
-    config.environment.currentWorkingDirectory.path
-  );
+  const repository = await git
+    .findRoot({ filepath: config.environment.currentWorkingDirectory.path, fs })
+    .catch(() => {
+      // Allow errors because that just means there was no repo found
+    });
 
   if (!repository) {
     return gitPrompt;
   }
 
-  const [currentBranch, currentStatus] = await Promise.all([
-    getCurrentBranchName(repository),
-    getStatus(repository)
-  ]);
+  const gitOperations = [getCurrentBranchName(repository)];
+
+  if (config.git.status) {
+    gitOperations.push(getStatus(repository));
+  }
+
+  const operationResults = await Promise.all(gitOperations);
+
+  const currentBranch = operationResults[0];
+  let currentStatus;
+
+  if (config.git.status) {
+    currentStatus = operationResults[1];
+  }
 
   if (config.git.branch.preposition) {
     let prepositionPrompt = `${config.git.branch.preposition.value} `;
@@ -123,16 +97,32 @@ module.exports = async function(config) {
 
   gitPrompt += branchPrompt;
 
+  // TODO Detect stash entries (proposed flag: "$")
+  // TODO Support custom flag symbols
   if (config.git.status) {
-    let flagPrompt = getFlagPrompt(currentStatus);
+    let statusFlags = "";
 
-    if (flagPrompt.length) {
-      if (config.git.status.color) {
-        flagPrompt = color(config.git.status.color)(flagPrompt);
-      }
-
-      gitPrompt += flagPrompt;
+    if (currentStatus.stagedChanges) {
+      statusFlags += "+";
     }
+
+    if (currentStatus.unstagedChanges) {
+      statusFlags += "!";
+    }
+
+    if (currentStatus.unstagedAdditions) {
+      statusFlags += "?";
+    }
+
+    if (statusFlags.length) {
+      statusFlags = ` [${statusFlags}]`;
+
+      if (config.git.status.color) {
+        statusFlags = color(config.git.status.color)(statusFlags);
+      }
+    }
+
+    gitPrompt += statusFlags;
   }
 
   return gitPrompt;
