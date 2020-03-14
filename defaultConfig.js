@@ -87,6 +87,7 @@ module.exports = {
     "directory",
     "git",
     "nodejs",
+    "rust",
     "python",
     "ruby",
     "previousExitCode"
@@ -122,6 +123,22 @@ module.exports = {
       value: "using"
     },
     symbol: "Ruby"
+  },
+  rust: {
+    color: {
+      modifier: "bold",
+      type: "keyword",
+      value: "brown"
+    },
+    preposition: {
+      color: {
+        modifier: "bold",
+        type: "keyword",
+        value: "white"
+      },
+      value: "using"
+    },
+    symbol: "Rust"
   },
   symbol: {
     color: {

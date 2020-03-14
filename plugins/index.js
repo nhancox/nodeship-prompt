@@ -5,6 +5,7 @@ const nodejs = require("./nodejs.js");
 const previousExitCode = require("./previousExitCode.js");
 const python = require("./python.js");
 const ruby = require("./ruby.js");
+const rust = require("./rust.js");
 const user = require("./user.js");
 
 module.exports = {
@@ -15,5 +16,6 @@ module.exports = {
   previousExitCode,
   python,
   ruby,
+  rust,
   user
 };
