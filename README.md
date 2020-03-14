@@ -13,6 +13,11 @@ Pilot your shell prompt with Node.js.
 That's it! The Bash adapter will modify your path for you while preserving any
 existing `PROMPT_COMMAND`.
 
+If you would like to get rid of the repository and/or organize on your own, copy
+the binary to a location on your path, remove the lines in the adapter that
+modify the path (lines 2-10) and then `source` the adapter (which can be placed
+wherever you like).
+
 `npm run build` creates a binary using the `pkg` module, allowing for easy
 distribution and avoiding conflicts with system Node.js versions and version
 managers.
@@ -20,19 +25,24 @@ managers.
 ## Current Features
 
 - Truecolor support
-- User plugin
-- Host plugin
-- Directory plugin
-- Git plugin
-- Node.js plugin
+- Plugins:
+  - User
+  - Host
+  - Directory
+  - Git
+  - Languages
+    - Node.js
+    - PHP
+    - Python
+    - Ruby
+    - Rust
+  - Previous Exit Code
 
 ## Proposed Plugins
 
-- Languages
 - Jobs
 - Execution time
 - Date
-- Exit code
 
 ## Current Issues and Tasks
 
