@@ -9,7 +9,7 @@ const RUBY_FILES = ["Gemfile"];
 function checkDirectories(directories) {
   let match = false;
   directories.forEach((directory) => {
-    if (RUBY_DIRECTORIES.includes(directory)) {
+    if (!match && RUBY_DIRECTORIES.includes(directory)) {
       match = true;
     }
   });
@@ -20,7 +20,7 @@ function checkExtensions(files) {
   let match = false;
   files.forEach((file) => {
     RUBY_EXTENSIONS.forEach((extension) => {
-      if (!file.startsWith(".") && file.endsWith(extension)) {
+      if (!match && !file.startsWith(".") && file.endsWith(extension)) {
         match = true;
       }
     });
@@ -31,7 +31,7 @@ function checkExtensions(files) {
 function checkFiles(files) {
   let match = false;
   files.forEach((file) => {
-    if (RUBY_FILES.includes(file)) {
+    if (!match && RUBY_FILES.includes(file)) {
       match = true;
     }
   });

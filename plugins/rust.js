@@ -9,7 +9,7 @@ const RUST_FILES = ["Cargo.toml"];
 function checkDirectories(directories) {
   let match = false;
   directories.forEach((directory) => {
-    if (RUST_DIRECTORIES.includes(directory)) {
+    if (!match && RUST_DIRECTORIES.includes(directory)) {
       match = true;
     }
   });
@@ -20,7 +20,7 @@ function checkExtensions(files) {
   let match = false;
   files.forEach((file) => {
     RUST_EXTENSIONS.forEach((extension) => {
-      if (!file.startsWith(".") && file.endsWith(extension)) {
+      if (!match && !file.startsWith(".") && file.endsWith(extension)) {
         match = true;
       }
     });
@@ -31,7 +31,7 @@ function checkExtensions(files) {
 function checkFiles(files) {
   let match = false;
   files.forEach((file) => {
-    if (RUST_FILES.includes(file)) {
+    if (!match && RUST_FILES.includes(file)) {
       match = true;
     }
   });
