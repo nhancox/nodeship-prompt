@@ -74,7 +74,14 @@ module.exports = {
     },
     symbol: "Node"
   },
-  prompt: ["user", "host", "directory", "git", "nodejs"],
+  previousExitCode: {
+    color: {
+      modifier: "bold",
+      type: "hex",
+      value: "#af0000"
+    }
+  },
+  prompt: ["user", "host", "directory", "git", "nodejs", "previousExitCode"],
   symbol: {
     color: {
       modifier: "bold",
