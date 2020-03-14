@@ -87,9 +87,26 @@ module.exports = {
     "directory",
     "git",
     "nodejs",
+    "python",
     "ruby",
     "previousExitCode"
   ],
+  python: {
+    color: {
+      modifier: "bold",
+      type: "hex",
+      value: "#af8700"
+    },
+    preposition: {
+      color: {
+        modifier: "bold",
+        type: "keyword",
+        value: "white"
+      },
+      value: "using"
+    },
+    symbol: "Python"
+  },
   ruby: {
     color: {
       modifier: "bold",
