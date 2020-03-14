@@ -81,7 +81,31 @@ module.exports = {
       value: "#af0000"
     }
   },
-  prompt: ["user", "host", "directory", "git", "nodejs", "previousExitCode"],
+  prompt: [
+    "user",
+    "host",
+    "directory",
+    "git",
+    "nodejs",
+    "ruby",
+    "previousExitCode"
+  ],
+  ruby: {
+    color: {
+      modifier: "bold",
+      type: "hex",
+      value: "#af0000"
+    },
+    preposition: {
+      color: {
+        modifier: "bold",
+        type: "keyword",
+        value: "white"
+      },
+      value: "using"
+    },
+    symbol: "Ruby"
+  },
   symbol: {
     color: {
       modifier: "bold",
