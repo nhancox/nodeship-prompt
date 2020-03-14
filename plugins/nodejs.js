@@ -48,7 +48,8 @@ function getNodeVersion(currentWorkingDirectory) {
           return resolve(false);
         }
 
-        resolve(stdout.replace("\n", ""));
+        // Output is only the version starting with "v"
+        resolve(stdout.replace("\n", "").slice(1));
       }
     );
   });

@@ -5,24 +5,17 @@
 // If you use `asdf-vm`, the `.tool-versions` file that is read ensures that the
 // right version will be used in the project directory.
 
-const fs = require("fs").promises;
 const path = require("path");
 
 const nodejs = require("./nodejs.js");
+const toolVersion = require("../lib/toolVersion.js");
 
 let NODESHIP_NODE_VERSION;
 const PROJECT_PATH = path.resolve(__dirname, "..");
 
 describe("nodejs tests (when Node.js is installed)", () => {
   beforeAll(async () => {
-    const toolVersionFile = path.resolve(PROJECT_PATH, ".tool-versions");
-    let toolVersions = await fs.readFile(toolVersionFile, "utf8");
-    toolVersions = toolVersions.split("\n");
-    toolVersions.pop();
-    const nodeVersion = toolVersions.find((entry) => {
-      return entry.split(" ")[0] === "nodejs";
-    });
-    NODESHIP_NODE_VERSION = nodeVersion.split(" ")[1];
+    NODESHIP_NODE_VERSION = await toolVersion("nodejs");
   });
 
   // Note that this is the same as the next test. Wanted to make the different
@@ -41,7 +34,7 @@ describe("nodejs tests (when Node.js is installed)", () => {
 
     const nodejsPrompt = await nodejs(config);
 
-    expect(nodejsPrompt).toMatch(NODESHIP_NODE_VERSION);
+    expect(nodejsPrompt).toBe(NODESHIP_NODE_VERSION);
   });
 
   test("triggers on `node_modules` directory", async () => {
@@ -58,7 +51,7 @@ describe("nodejs tests (when Node.js is installed)", () => {
 
     const nodejsPrompt = await nodejs(config);
 
-    expect(nodejsPrompt).toMatch(NODESHIP_NODE_VERSION);
+    expect(nodejsPrompt).toBe(NODESHIP_NODE_VERSION);
   });
 
   test("triggers on `package.json` file", async () => {
@@ -75,7 +68,7 @@ describe("nodejs tests (when Node.js is installed)", () => {
 
     const nodejsPrompt = await nodejs(config);
 
-    expect(nodejsPrompt).toMatch(NODESHIP_NODE_VERSION);
+    expect(nodejsPrompt).toBe(NODESHIP_NODE_VERSION);
   });
 
   test("triggers on any `.js` file", async () => {
@@ -92,7 +85,62 @@ describe("nodejs tests (when Node.js is installed)", () => {
 
     const nodejsPrompt = await nodejs(config);
 
-    expect(nodejsPrompt).toMatch(NODESHIP_NODE_VERSION);
+    expect(nodejsPrompt).toBe(NODESHIP_NODE_VERSION);
+  });
+
+  test("doesn't trigger on dot files", async () => {
+    const config = {
+      environment: {
+        currentWorkingDirectory: {
+          directories: [],
+          files: ["README.md", ".config.js", ".eslintrc.js"],
+          path: PROJECT_PATH
+        }
+      },
+      nodejs: {}
+    };
+
+    const nodejsPrompt = await nodejs(config);
+
+    expect(nodejsPrompt).toBe("");
+  });
+
+  test("includes a preposition when specified", async () => {
+    const preposition = "using";
+    const config = {
+      environment: {
+        currentWorkingDirectory: {
+          directories: ["node_modules"],
+          files: [],
+          path: PROJECT_PATH
+        }
+      },
+      nodejs: {
+        preposition: { value: preposition }
+      }
+    };
+
+    const nodejsPrompt = await nodejs(config);
+
+    expect(nodejsPrompt).toBe(`${preposition} ${NODESHIP_NODE_VERSION}`);
+  });
+
+  test("includes a symbol when specified", async () => {
+    const symbol = "Node";
+    const config = {
+      environment: {
+        currentWorkingDirectory: {
+          directories: ["node_modules"],
+          files: [],
+          path: PROJECT_PATH
+        }
+      },
+      nodejs: { symbol }
+    };
+
+    const nodejsPrompt = await nodejs(config);
+
+    expect(nodejsPrompt).toBe(`${symbol} ${NODESHIP_NODE_VERSION}`);
   });
 
   test("doesn't trigger with no directory or file matches", async () => {

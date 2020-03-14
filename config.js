@@ -56,8 +56,7 @@ async function getDefaultConfig(previousExitCode) {
 async function resolveConfig(previousExitCode) {
   const resolvedConfig = await getDefaultConfig(previousExitCode);
 
-  let userConfig = false;
-  userConfig = await fs.readFile(NODESHIP_CONFIG, "utf8").catch(() => {
+  let userConfig = await fs.readFile(NODESHIP_CONFIG, "utf8").catch(() => {
     // Allow errors because the file's existence is optional
   });
 
