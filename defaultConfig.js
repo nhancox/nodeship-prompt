@@ -74,6 +74,22 @@ module.exports = {
     },
     symbol: "Node"
   },
+  php: {
+    color: {
+      modifier: "bold",
+      type: "hex",
+      value: "#5f5faf"
+    },
+    preposition: {
+      color: {
+        modifier: "bold",
+        type: "keyword",
+        value: "white"
+      },
+      value: "using"
+    },
+    symbol: "PHP"
+  },
   previousExitCode: {
     color: {
       modifier: "bold",
@@ -90,6 +106,7 @@ module.exports = {
     "rust",
     "python",
     "ruby",
+    "php",
     "previousExitCode"
   ],
   python: {
