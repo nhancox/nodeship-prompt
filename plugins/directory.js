@@ -1,13 +1,16 @@
 const color = require("../lib/color.js");
 
 module.exports = function(config) {
+  const colorize = color(config.environment.shellEscape);
+
   let directoryPrompt = "";
 
   if (config.directory.preposition) {
     let prepositionPrompt = `${config.directory.preposition.value} `;
 
     if (config.directory.preposition.color) {
-      prepositionPrompt = color(config.directory.preposition.color)(
+      prepositionPrompt = colorize(
+        config.directory.preposition.color,
         prepositionPrompt
       );
     }
@@ -27,7 +30,7 @@ module.exports = function(config) {
   }
 
   if (config.directory.color) {
-    transformedPath = color(config.directory.color)(transformedPath);
+    transformedPath = colorize(config.directory.color, transformedPath);
   }
 
   directoryPrompt += transformedPath;

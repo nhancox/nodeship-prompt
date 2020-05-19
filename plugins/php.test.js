@@ -141,32 +141,4 @@ describe.skip("php tests (when PHP is installed)", () => {
 
     expect(phpPrompt).toBe("");
   });
-
-  test("doesn't fail when using colors", async () => {
-    const config = {
-      environment: {
-        currentWorkingDirectory: {
-          directories: [],
-          files: ["composer.json"],
-          path: PROJECT_PATH
-        }
-      },
-      php: {
-        color: {
-          type: "keyword",
-          value: "purple"
-        },
-        preposition: {
-          color: {
-            type: "keyword",
-            value: "white"
-          },
-          value: "using"
-        },
-        symbol: "PHP"
-      }
-    };
-
-    await php(config);
-  });
 });

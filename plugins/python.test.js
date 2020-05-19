@@ -148,32 +148,4 @@ describe.skip("python tests (when Python is installed)", () => {
 
     expect(pythonPrompt).toBe("");
   });
-
-  test("doesn't fail when using colors", async () => {
-    const config = {
-      environment: {
-        currentWorkingDirectory: {
-          directories: [],
-          files: ["Pipfile"],
-          path: PROJECT_PATH
-        }
-      },
-      python: {
-        color: {
-          type: "keyword",
-          value: "yellow"
-        },
-        preposition: {
-          color: {
-            type: "keyword",
-            value: "white"
-          },
-          value: "using"
-        },
-        symbol: "Python"
-      }
-    };
-
-    await python(config);
-  });
 });

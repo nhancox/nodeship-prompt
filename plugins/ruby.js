@@ -60,6 +60,8 @@ function getRubyVersion(currentWorkingDirectory) {
 }
 
 module.exports = async function(config) {
+  const colorize = color(config.environment.shellEscape);
+
   let rubyPrompt = "";
 
   if (
@@ -82,7 +84,8 @@ module.exports = async function(config) {
     let prepositionPrompt = `${config.ruby.preposition.value} `;
 
     if (config.ruby.preposition.color) {
-      prepositionPrompt = color(config.ruby.preposition.color)(
+      prepositionPrompt = colorize(
+        config.ruby.preposition.color,
         prepositionPrompt
       );
     }
@@ -97,7 +100,7 @@ module.exports = async function(config) {
   }
 
   if (config.ruby.color) {
-    versionPrompt = color(config.ruby.color)(versionPrompt);
+    versionPrompt = colorize(config.ruby.color, versionPrompt);
   }
 
   rubyPrompt += versionPrompt;

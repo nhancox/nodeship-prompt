@@ -61,6 +61,8 @@ function getPHPVersion(currentWorkingDirectory) {
 }
 
 module.exports = async function(config) {
+  const colorize = color(config.environment.shellEscape);
+
   let phpPrompt = "";
 
   if (
@@ -83,7 +85,8 @@ module.exports = async function(config) {
     let prepositionPrompt = `${config.php.preposition.value} `;
 
     if (config.php.preposition.color) {
-      prepositionPrompt = color(config.php.preposition.color)(
+      prepositionPrompt = colorize(
+        config.php.preposition.color,
         prepositionPrompt
       );
     }
@@ -98,7 +101,7 @@ module.exports = async function(config) {
   }
 
   if (config.php.color) {
-    versionPrompt = color(config.php.color)(versionPrompt);
+    versionPrompt = colorize(config.php.color, versionPrompt);
   }
 
   phpPrompt += versionPrompt;

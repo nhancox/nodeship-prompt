@@ -1,11 +1,11 @@
 const createPrompt = require("./prompt.js");
 const resolveConfig = require("./config.js");
 
-// For the eventual `exitCode` plugin; currently unused
 const PREVIOUS_EXIT_CODE = Number(process.argv[2]);
+const SHELL = process.argv[3];
 
 (async () => {
-  const config = await resolveConfig(PREVIOUS_EXIT_CODE);
+  const config = await resolveConfig(PREVIOUS_EXIT_CODE, SHELL);
   const nodeshipPrompt = await createPrompt(config);
   process.stdout.write(nodeshipPrompt);
 })();

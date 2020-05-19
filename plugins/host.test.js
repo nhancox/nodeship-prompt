@@ -25,29 +25,4 @@ describe("host plugin", () => {
 
     expect(hostPrompt).toBe(`${preposition} ${hostName}`);
   });
-
-  test("doesn't fail when using colors", async () => {
-    const hostName = "nodeship";
-    const hostColor = {
-      type: "keyword",
-      value: "yellow"
-    };
-    const preposition = "at";
-    const prepositionColor = {
-      type: "keyword",
-      value: "blue"
-    };
-    const config = {
-      environment: { host: hostName },
-      host: {
-        color: hostColor,
-        preposition: {
-          color: prepositionColor,
-          value: preposition
-        }
-      }
-    };
-
-    await host(config);
-  });
 });

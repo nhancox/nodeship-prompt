@@ -142,32 +142,4 @@ describe.skip("ruby tests (when Ruby is installed)", () => {
 
     expect(rubyPrompt).toBe("");
   });
-
-  test("doesn't fail when using colors", async () => {
-    const config = {
-      environment: {
-        currentWorkingDirectory: {
-          directories: [],
-          files: ["Gemfile"],
-          path: PROJECT_PATH
-        }
-      },
-      ruby: {
-        color: {
-          type: "keyword",
-          value: "red"
-        },
-        preposition: {
-          color: {
-            type: "keyword",
-            value: "white"
-          },
-          value: "using"
-        },
-        symbol: "Ruby"
-      }
-    };
-
-    await ruby(config);
-  });
 });

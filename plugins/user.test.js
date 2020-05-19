@@ -9,18 +9,4 @@ describe("user plugin", () => {
 
     expect(userPrompt).toBe(username);
   });
-
-  test("doesn't fail when using colors", async () => {
-    const username = "pilot";
-    const color = {
-      type: "keyword",
-      value: "yellow"
-    };
-    const config = {
-      environment: { user: username },
-      user: { color }
-    };
-
-    await user(config);
-  });
 });

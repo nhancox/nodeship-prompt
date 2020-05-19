@@ -131,36 +131,3 @@ test("prints the correct status flags", async () => {
 
   expect(gitPrompt).toBe(`master ${statusFlags}`);
 });
-
-test("doesn't fail when using colors", async () => {
-  const branchColor = {
-    type: "keyword",
-    value: "purple"
-  };
-  const preposition = "on";
-  const prepositionColor = {
-    type: "keyword",
-    value: "red"
-  };
-  const flagColor = {
-    type: "keyword",
-    value: "blue"
-  };
-  const config = {
-    environment: { currentWorkingDirectory: { path: DIRTY_REPO_PATH } },
-    git: {
-      branch: {
-        color: branchColor,
-        preposition: {
-          color: prepositionColor,
-          value: preposition
-        }
-      },
-      status: {
-        color: flagColor
-      }
-    }
-  };
-
-  await gitPlugin(config);
-});

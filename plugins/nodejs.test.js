@@ -159,32 +159,4 @@ describe("nodejs tests (when Node.js is installed)", () => {
 
     expect(nodejsPrompt).toBe("");
   });
-
-  test("doesn't fail when using colors", async () => {
-    const config = {
-      environment: {
-        currentWorkingDirectory: {
-          directories: ["node_modules"],
-          files: [],
-          path: PROJECT_PATH
-        }
-      },
-      nodejs: {
-        color: {
-          type: "keyword",
-          value: "green"
-        },
-        preposition: {
-          color: {
-            type: "keyword",
-            value: "white"
-          },
-          value: "using"
-        },
-        symbol: "Node"
-      }
-    };
-
-    await nodejs(config);
-  });
 });

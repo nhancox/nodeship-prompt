@@ -3,6 +3,8 @@ const plugins = require("./plugins/index.js");
 
 // TODO Test the final steps (mock plugins)
 module.exports = async function(config) {
+  const colorize = color(config.environment.shellEscape);
+
   let nodeshipPrompt = "";
 
   if (config.newline) {
@@ -34,7 +36,7 @@ module.exports = async function(config) {
     symbolPrompt += `${config.symbol.value} `;
 
     if (config.symbol.color) {
-      symbolPrompt = color(config.symbol.color)(symbolPrompt);
+      symbolPrompt = colorize(config.symbol.color, symbolPrompt);
     }
 
     nodeshipPrompt += symbolPrompt;

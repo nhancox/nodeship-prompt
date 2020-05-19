@@ -56,6 +56,8 @@ function getNodeVersion(currentWorkingDirectory) {
 }
 
 module.exports = async function(config) {
+  const colorize = color(config.environment.shellEscape);
+
   let nodejsPrompt = "";
 
   if (
@@ -78,7 +80,8 @@ module.exports = async function(config) {
     let prepositionPrompt = `${config.nodejs.preposition.value} `;
 
     if (config.nodejs.preposition.color) {
-      prepositionPrompt = color(config.nodejs.preposition.color)(
+      prepositionPrompt = colorize(
+        config.nodejs.preposition.color,
         prepositionPrompt
       );
     }
@@ -93,7 +96,7 @@ module.exports = async function(config) {
   }
 
   if (config.nodejs.color) {
-    versionPrompt = color(config.nodejs.color)(versionPrompt);
+    versionPrompt = colorize(config.nodejs.color, versionPrompt);
   }
 
   nodejsPrompt += versionPrompt;

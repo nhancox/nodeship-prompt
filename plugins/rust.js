@@ -60,6 +60,8 @@ function getRustVersion(currentWorkingDirectory) {
 }
 
 module.exports = async function(config) {
+  const colorize = color(config.environment.shellEscape);
+
   let rustPrompt = "";
 
   if (
@@ -82,7 +84,8 @@ module.exports = async function(config) {
     let prepositionPrompt = `${config.rust.preposition.value} `;
 
     if (config.rust.preposition.color) {
-      prepositionPrompt = color(config.rust.preposition.color)(
+      prepositionPrompt = colorize(
+        config.rust.preposition.color,
         prepositionPrompt
       );
     }
@@ -97,7 +100,7 @@ module.exports = async function(config) {
   }
 
   if (config.rust.color) {
-    versionPrompt = color(config.rust.color)(versionPrompt);
+    versionPrompt = colorize(config.rust.color)(versionPrompt);
   }
 
   rustPrompt += versionPrompt;

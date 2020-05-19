@@ -1,6 +1,8 @@
 const color = require("../lib/color.js");
 
 module.exports = function(config) {
+  const colorize = color(config.environment.shellEscape);
+
   let exitCodePrompt = "";
 
   if (config.environment.previousExitCode !== 0) {
@@ -8,7 +10,7 @@ module.exports = function(config) {
   }
 
   if (config.previousExitCode.color) {
-    exitCodePrompt = color(config.previousExitCode.color)(exitCodePrompt);
+    exitCodePrompt = colorize(config.previousExitCode.color, exitCodePrompt);
   }
 
   return exitCodePrompt;

@@ -3,6 +3,7 @@ const os = require("os");
 const path = require("path");
 
 const defaultConfig = require("./defaultConfig.js");
+const shellEscape = require("./lib/shellEscape.js");
 
 /* eslint-disable no-process-env */
 // Only access `process.env` here to lower overhead
@@ -17,7 +18,7 @@ const NODE_WORKING_DIRECTORY = __dirname;
 const USER_CONFIG_LOCATION = XDG_CONFIG_HOME || path.join(HOME, ".config");
 const NODESHIP_CONFIG = path.join(USER_CONFIG_LOCATION, "nodeship-prompt.json");
 
-async function getDefaultConfig(previousExitCode) {
+async function getDefaultConfig(previousExitCode, shell) {
   // TODO Should be able to optimize by skipping this. No state preserved
   // between runs so the side effects don't matter.
   const defaults = JSON.parse(JSON.stringify(defaultConfig));
@@ -46,6 +47,8 @@ async function getDefaultConfig(previousExitCode) {
     host: HOSTNAME,
     nodeshipDirectory: NODE_WORKING_DIRECTORY,
     previousExitCode: previousExitCode || 0,
+    shell: shell || null,
+    shellEscape: shellEscape(shell),
     user: USER,
     variables: SYSTEM_ENVIRONMENT_VARIABLES
   };
@@ -53,8 +56,8 @@ async function getDefaultConfig(previousExitCode) {
   return defaults;
 }
 
-async function resolveConfig(previousExitCode) {
-  const resolvedConfig = await getDefaultConfig(previousExitCode);
+async function resolveConfig(previousExitCode, shell) {
+  const resolvedConfig = await getDefaultConfig(previousExitCode, shell);
 
   let userConfig = await fs.readFile(NODESHIP_CONFIG, "utf8").catch(() => {
     // Allow errors because the file's existence is optional

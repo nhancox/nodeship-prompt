@@ -65,6 +65,8 @@ function getPythonVersion(currentWorkingDirectory) {
 }
 
 module.exports = async function(config) {
+  const colorize = color(config.environment.shellEscape);
+
   let pythonPrompt = "";
 
   if (
@@ -87,7 +89,8 @@ module.exports = async function(config) {
     let prepositionPrompt = `${config.python.preposition.value} `;
 
     if (config.python.preposition.color) {
-      prepositionPrompt = color(config.python.preposition.color)(
+      prepositionPrompt = colorize(
+        config.python.preposition.color,
         prepositionPrompt
       );
     }
@@ -102,7 +105,7 @@ module.exports = async function(config) {
   }
 
   if (config.python.color) {
-    versionPrompt = color(config.python.color)(versionPrompt);
+    versionPrompt = colorize(config.python.color, versionPrompt);
   }
 
   pythonPrompt += versionPrompt;

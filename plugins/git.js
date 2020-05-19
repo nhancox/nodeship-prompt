@@ -87,6 +87,8 @@ async function parseStatus(repository) {
 }
 
 module.exports = async function(config) {
+  const colorize = color(config.environment.shellEscape);
+
   let gitPrompt = "";
 
   const repository = await git
@@ -118,7 +120,8 @@ module.exports = async function(config) {
     let prepositionPrompt = `${config.git.branch.preposition.value} `;
 
     if (config.git.branch.preposition.color) {
-      prepositionPrompt = color(config.git.branch.preposition.color)(
+      prepositionPrompt = colorize(
+        config.git.branch.preposition.color,
         prepositionPrompt
       );
     }
@@ -129,7 +132,7 @@ module.exports = async function(config) {
   let branchPrompt = currentBranch;
 
   if (config.git.branch.color) {
-    branchPrompt = color(config.git.branch.color)(branchPrompt);
+    branchPrompt = colorize(config.git.branch.color, branchPrompt);
   }
 
   gitPrompt += branchPrompt;
@@ -155,7 +158,7 @@ module.exports = async function(config) {
       statusFlags = ` [${statusFlags}]`;
 
       if (config.git.status.color) {
-        statusFlags = color(config.git.status.color)(statusFlags);
+        statusFlags = colorize(config.git.status.color, statusFlags);
       }
     }
 

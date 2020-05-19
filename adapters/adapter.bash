@@ -10,7 +10,7 @@ unset NODESHIP_BIN
 
 _nodeship_bash_adapter() {
     local -r previous_exit_code=$?
-    nodeship-prompt $previous_exit_code
+    nodeship-prompt $previous_exit_code 'bash'
 }
 
 _set_prompt() {

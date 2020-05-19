@@ -141,32 +141,4 @@ describe.skip("rust tests (when Rust is installed)", () => {
 
     expect(rustPrompt).toBe("");
   });
-
-  test("doesn't fail when using colors", async () => {
-    const config = {
-      environment: {
-        currentWorkingDirectory: {
-          directories: [],
-          files: ["Cargo.toml"],
-          path: PROJECT_PATH
-        }
-      },
-      rust: {
-        color: {
-          type: "keyword",
-          value: "brown"
-        },
-        preposition: {
-          color: {
-            type: "keyword",
-            value: "white"
-          },
-          value: "using"
-        },
-        symbol: "Rust"
-      }
-    };
-
-    await rust(config);
-  });
 });
