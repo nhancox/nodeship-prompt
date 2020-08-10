@@ -97,18 +97,7 @@ module.exports = {
       value: "#af0000"
     }
   },
-  prompt: [
-    "user",
-    "host",
-    "directory",
-    "git",
-    "nodejs",
-    "rust",
-    "python",
-    "ruby",
-    "php",
-    "previousExitCode"
-  ],
+  prompt: ["user", "host", "directory", "git", "previousExitCode"],
   python: {
     color: {
       modifier: "bold",
