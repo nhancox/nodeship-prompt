@@ -12,7 +12,7 @@ test("print the correct exit code when non-zero", async () => {
   const exitCode = String(101);
   const config = {
     environment: { previousExitCode: exitCode },
-    previousExitCode: {}
+    previousExitCode: {},
   };
 
   const previousExitCodePrompt = await previousExitCode(config);

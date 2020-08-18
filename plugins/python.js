@@ -9,7 +9,7 @@ const PYTHON_FILES = [
   "Pipfile",
   "pyproject.toml",
   "requirements.txt",
-  "tox.ini"
+  "tox.ini",
 ];
 
 function checkDirectories(directories) {

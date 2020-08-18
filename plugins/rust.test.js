@@ -25,10 +25,10 @@ describe.skip("rust tests (when Rust is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Cargo.toml"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      rust: {}
+      rust: {},
     };
 
     const rustPrompt = await rust(config);
@@ -42,10 +42,10 @@ describe.skip("rust tests (when Rust is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Cargo.toml"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      rust: {}
+      rust: {},
     };
 
     const rustPrompt = await rust(config);
@@ -59,10 +59,10 @@ describe.skip("rust tests (when Rust is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["README.md", "main.rs"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      rust: {}
+      rust: {},
     };
 
     const rustPrompt = await rust(config);
@@ -76,10 +76,10 @@ describe.skip("rust tests (when Rust is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["README.md", ".config.rs"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      rust: {}
+      rust: {},
     };
 
     const rustPrompt = await rust(config);
@@ -94,12 +94,12 @@ describe.skip("rust tests (when Rust is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Cargo.toml"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
       rust: {
-        preposition: { value: preposition }
-      }
+        preposition: { value: preposition },
+      },
     };
 
     const rustPrompt = await rust(config);
@@ -114,10 +114,10 @@ describe.skip("rust tests (when Rust is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Cargo.toml"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      rust: { symbol }
+      rust: { symbol },
     };
 
     const rustPrompt = await rust(config);
@@ -131,10 +131,10 @@ describe.skip("rust tests (when Rust is installed)", () => {
         currentWorkingDirectory: {
           directories: ["build", "dist", "lib"],
           files: ["README.md", "__init__.py", "LICENSE"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      rust: {}
+      rust: {},
     };
 
     const rustPrompt = await rust(config);

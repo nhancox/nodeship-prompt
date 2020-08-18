@@ -7,9 +7,9 @@ describe("directory plugin", () => {
       directory: {},
       environment: {
         currentWorkingDirectory: {
-          path: currentWorkingDirectory
-        }
-      }
+          path: currentWorkingDirectory,
+        },
+      },
     };
 
     const directoryPrompt = await directory(config);
@@ -23,8 +23,8 @@ describe("directory plugin", () => {
     const config = {
       directory: { preposition: { value: preposition } },
       environment: {
-        currentWorkingDirectory: { path: currentWorkingDirectory }
-      }
+        currentWorkingDirectory: { path: currentWorkingDirectory },
+      },
     };
 
     const directoryPrompt = await directory(config);
@@ -41,8 +41,8 @@ describe("directory plugin", () => {
       directory: { homeSymbol },
       environment: {
         currentWorkingDirectory: { path: currentWorkingDirectory },
-        home
-      }
+        home,
+      },
     };
 
     const directoryPrompt = await directory(config);
@@ -58,8 +58,8 @@ describe("directory plugin", () => {
       directory: { homeSymbol },
       environment: {
         currentWorkingDirectory: { path: currentWorkingDirectory },
-        home
-      }
+        home,
+      },
     };
 
     const directoryPrompt = await directory(config);

@@ -26,10 +26,10 @@ describe("nodejs tests (when Node.js is installed)", () => {
         currentWorkingDirectory: {
           directories: ["node_modules"],
           files: [],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      nodejs: {}
+      nodejs: {},
     };
 
     const nodejsPrompt = await nodejs(config);
@@ -43,10 +43,10 @@ describe("nodejs tests (when Node.js is installed)", () => {
         currentWorkingDirectory: {
           directories: ["dist", "node_modules"],
           files: [],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      nodejs: {}
+      nodejs: {},
     };
 
     const nodejsPrompt = await nodejs(config);
@@ -60,10 +60,10 @@ describe("nodejs tests (when Node.js is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["config.json", "package.json"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      nodejs: {}
+      nodejs: {},
     };
 
     const nodejsPrompt = await nodejs(config);
@@ -77,10 +77,10 @@ describe("nodejs tests (when Node.js is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["README.md", "app.js"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      nodejs: {}
+      nodejs: {},
     };
 
     const nodejsPrompt = await nodejs(config);
@@ -94,10 +94,10 @@ describe("nodejs tests (when Node.js is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["README.md", ".config.js", ".eslintrc.js"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      nodejs: {}
+      nodejs: {},
     };
 
     const nodejsPrompt = await nodejs(config);
@@ -112,12 +112,12 @@ describe("nodejs tests (when Node.js is installed)", () => {
         currentWorkingDirectory: {
           directories: ["node_modules"],
           files: [],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
       nodejs: {
-        preposition: { value: preposition }
-      }
+        preposition: { value: preposition },
+      },
     };
 
     const nodejsPrompt = await nodejs(config);
@@ -132,10 +132,10 @@ describe("nodejs tests (when Node.js is installed)", () => {
         currentWorkingDirectory: {
           directories: ["node_modules"],
           files: [],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      nodejs: { symbol }
+      nodejs: { symbol },
     };
 
     const nodejsPrompt = await nodejs(config);
@@ -149,10 +149,10 @@ describe("nodejs tests (when Node.js is installed)", () => {
         currentWorkingDirectory: {
           directories: ["build", "dist", "lib"],
           files: ["README.md", "__init__.py", "LICENSE"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      nodejs: {}
+      nodejs: {},
     };
 
     const nodejsPrompt = await nodejs(config);

@@ -25,10 +25,10 @@ describe.skip("ruby tests (when Ruby is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Gemfile"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      ruby: {}
+      ruby: {},
     };
 
     const rubyPrompt = await ruby(config);
@@ -43,10 +43,10 @@ describe.skip("ruby tests (when Ruby is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Gemfile"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      ruby: {}
+      ruby: {},
     };
 
     const rubyPrompt = await ruby(config);
@@ -60,10 +60,10 @@ describe.skip("ruby tests (when Ruby is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["README.md", "app.rb"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      ruby: {}
+      ruby: {},
     };
 
     const rubyPrompt = await ruby(config);
@@ -77,10 +77,10 @@ describe.skip("ruby tests (when Ruby is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["README.md", ".config.rb"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      ruby: {}
+      ruby: {},
     };
 
     const rubyPrompt = await ruby(config);
@@ -95,12 +95,12 @@ describe.skip("ruby tests (when Ruby is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Gemfile"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
       ruby: {
-        preposition: { value: preposition }
-      }
+        preposition: { value: preposition },
+      },
     };
 
     const rubyPrompt = await ruby(config);
@@ -115,10 +115,10 @@ describe.skip("ruby tests (when Ruby is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Gemfile"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      ruby: { symbol }
+      ruby: { symbol },
     };
 
     const rubyPrompt = await ruby(config);
@@ -132,10 +132,10 @@ describe.skip("ruby tests (when Ruby is installed)", () => {
         currentWorkingDirectory: {
           directories: ["build", "dist", "lib"],
           files: ["README.md", "__init__.py", "LICENSE"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      ruby: {}
+      ruby: {},
     };
 
     const rubyPrompt = await ruby(config);

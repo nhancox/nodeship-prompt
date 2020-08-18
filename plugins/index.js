@@ -19,5 +19,5 @@ module.exports = {
   python,
   ruby,
   rust,
-  user
+  user,
 };

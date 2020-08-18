@@ -25,10 +25,10 @@ describe.skip("php tests (when PHP is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["composer.json"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      php: {}
+      php: {},
     };
 
     const phpPrompt = await php(config);
@@ -42,10 +42,10 @@ describe.skip("php tests (when PHP is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["composer.json"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      php: {}
+      php: {},
     };
 
     const phpPrompt = await php(config);
@@ -59,10 +59,10 @@ describe.skip("php tests (when PHP is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["README.md", "ini.php"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      php: {}
+      php: {},
     };
 
     const phpPrompt = await php(config);
@@ -76,10 +76,10 @@ describe.skip("php tests (when PHP is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["README.md", ".config.php"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      php: {}
+      php: {},
     };
 
     const phpPrompt = await php(config);
@@ -94,12 +94,12 @@ describe.skip("php tests (when PHP is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["composer.json"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
       php: {
-        preposition: { value: preposition }
-      }
+        preposition: { value: preposition },
+      },
     };
 
     const phpPrompt = await php(config);
@@ -114,10 +114,10 @@ describe.skip("php tests (when PHP is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["composer.json"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      php: { symbol }
+      php: { symbol },
     };
 
     const phpPrompt = await php(config);
@@ -131,10 +131,10 @@ describe.skip("php tests (when PHP is installed)", () => {
         currentWorkingDirectory: {
           directories: ["build", "dist", "lib"],
           files: ["README.md", "__init__.py", "LICENSE"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      php: {}
+      php: {},
     };
 
     const phpPrompt = await php(config);

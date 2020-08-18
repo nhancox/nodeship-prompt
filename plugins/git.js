@@ -42,18 +42,18 @@ async function parseStatus(repository) {
   const statusMap = {
     stagedChanges: 0,
     unstagedAdditions: 0,
-    unstagedChanges: 0
+    unstagedChanges: 0,
   };
 
   // Currently in "short format": XY FILEPATH
   const STAGED_CHANGES = [
     /[ACMR][\sDM]/u, // Added, copied, modified or renamed in index
-    /[D]./u // Deleted from index
+    /[D]./u, // Deleted from index
   ];
   const UNSTAGED_ADDITIONS = "??";
   const UNSTAGED_CHANGES = [
     /[\sARCM][DM]/u, // Deleted in work tree or work tree changed since index
-    /[\sD][CR]/u // Copied or renamed in work tree
+    /[\sD][CR]/u, // Copied or renamed in work tree
   ];
   currentStatus.forEach((statusEntry) => {
     const state = statusEntry.slice(0, 2);

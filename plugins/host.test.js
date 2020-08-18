@@ -5,7 +5,7 @@ describe("host plugin", () => {
     const hostName = "nodeship";
     const config = {
       environment: { host: hostName },
-      host: {}
+      host: {},
     };
 
     const hostPrompt = await host(config);
@@ -18,7 +18,7 @@ describe("host plugin", () => {
     const preposition = "at";
     const config = {
       environment: { host: hostName },
-      host: { preposition: { value: preposition } }
+      host: { preposition: { value: preposition } },
     };
 
     const hostPrompt = await host(config);

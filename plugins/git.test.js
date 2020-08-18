@@ -36,7 +36,7 @@ async function createRepoWithCommit(repoName) {
 
   const author = {
     email: "pilot@example.com",
-    name: "Pilot"
+    name: "Pilot",
   };
   const message = "Initial commit";
   await git.commit({ author, dir: repoPath, fs, message });
@@ -60,7 +60,7 @@ async function dirtyRepo(repoPath) {
   await Promise.all([
     fs.appendFile(modifiedFilePath, appendText),
     fs.writeFile(stagedFilePath, stagedFileName),
-    fs.writeFile(unstagedFilePath, unstagedFileName)
+    fs.writeFile(unstagedFilePath, unstagedFileName),
   ]);
 
   await git.add({ dir: repoPath, filepath: stagedFileName, fs });
@@ -88,7 +88,7 @@ afterAll(async () => {
 test("prints the correct branch name", async () => {
   const config = {
     environment: { currentWorkingDirectory: { path: CLEAN_REPO_PATH } },
-    git: { branch: {} }
+    git: { branch: {} },
   };
 
   const gitPrompt = await gitPlugin(config);
@@ -99,7 +99,7 @@ test("prints the correct branch name", async () => {
 test("doesn't show status flags on a clean tree", async () => {
   const config = {
     environment: { currentWorkingDirectory: { path: CLEAN_REPO_PATH } },
-    git: { branch: {}, status: {} }
+    git: { branch: {}, status: {} },
   };
 
   const gitPrompt = await gitPlugin(config);
@@ -111,7 +111,7 @@ test("includes a preposition when specified", async () => {
   const preposition = "on";
   const config = {
     environment: { currentWorkingDirectory: { path: CLEAN_REPO_PATH } },
-    git: { branch: { preposition: { value: preposition } } }
+    git: { branch: { preposition: { value: preposition } } },
   };
 
   const gitPrompt = await gitPlugin(config);
@@ -124,7 +124,7 @@ test("prints the correct status flags", async () => {
   const statusFlags = "[+!?]";
   const config = {
     environment: { currentWorkingDirectory: { path: DIRTY_REPO_PATH } },
-    git: { branch: {}, status: {} }
+    git: { branch: {}, status: {} },
   };
 
   const gitPrompt = await gitPlugin(config);

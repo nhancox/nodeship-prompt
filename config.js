@@ -25,7 +25,7 @@ async function getDefaultConfig(previousExitCode, shell) {
 
   // TODO (PERF) should this be grouped with other `fs` operation?
   const directoryContents = await fs.readdir(CURRENT_WORKING_DIRECTORY, {
-    withFileTypes: true
+    withFileTypes: true,
   });
   const directories = [];
   const files = [];
@@ -41,7 +41,7 @@ async function getDefaultConfig(previousExitCode, shell) {
     currentWorkingDirectory: {
       directories,
       files,
-      path: CURRENT_WORKING_DIRECTORY
+      path: CURRENT_WORKING_DIRECTORY,
     },
     home: HOME,
     host: HOSTNAME,
@@ -50,7 +50,7 @@ async function getDefaultConfig(previousExitCode, shell) {
     shell: shell || null,
     shellEscape: shellEscape(shell),
     user: USER,
-    variables: SYSTEM_ENVIRONMENT_VARIABLES
+    variables: SYSTEM_ENVIRONMENT_VARIABLES,
   };
 
   return defaults;

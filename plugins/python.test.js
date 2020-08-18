@@ -25,10 +25,10 @@ describe.skip("python tests (when Python is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Pipfile"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      python: {}
+      python: {},
     };
 
     const pythonPrompt = await python(config);
@@ -47,12 +47,12 @@ describe.skip("python tests (when Python is installed)", () => {
             "Pipfile",
             "pyproject.toml",
             "requirements.txt",
-            "tox.ini"
+            "tox.ini",
           ],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      python: {}
+      python: {},
     };
 
     const pythonPrompt = await python(config);
@@ -66,10 +66,10 @@ describe.skip("python tests (when Python is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["README.md", "__init__.py"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      python: {}
+      python: {},
     };
 
     const pythonPrompt = await python(config);
@@ -83,10 +83,10 @@ describe.skip("python tests (when Python is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["README.md", ".config.py"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      python: {}
+      python: {},
     };
 
     const pythonPrompt = await python(config);
@@ -101,12 +101,12 @@ describe.skip("python tests (when Python is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Pipfile"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
       python: {
-        preposition: { value: preposition }
-      }
+        preposition: { value: preposition },
+      },
     };
 
     const pythonPrompt = await python(config);
@@ -121,10 +121,10 @@ describe.skip("python tests (when Python is installed)", () => {
         currentWorkingDirectory: {
           directories: [],
           files: ["Pipfile"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      python: { symbol }
+      python: { symbol },
     };
 
     const pythonPrompt = await python(config);
@@ -138,10 +138,10 @@ describe.skip("python tests (when Python is installed)", () => {
         currentWorkingDirectory: {
           directories: ["build", "dist", "lib"],
           files: ["README.md", "ini.php", "LICENSE"],
-          path: PROJECT_PATH
-        }
+          path: PROJECT_PATH,
+        },
       },
-      python: {}
+      python: {},
     };
 
     const pythonPrompt = await python(config);

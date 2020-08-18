@@ -6,160 +6,160 @@ module.exports = {
     color: {
       modifier: "bold",
       type: "hex",
-      value: "#5f8700"
+      value: "#5f8700",
     },
     homeSymbol: "~",
     preposition: {
       color: {
         modifier: "bold",
         type: "keyword",
-        value: "white"
+        value: "white",
       },
-      value: "in"
-    }
+      value: "in",
+    },
   },
   git: {
     branch: {
       color: {
         modifier: "bold",
         type: "hex",
-        value: "#5f5faf"
+        value: "#5f5faf",
       },
       preposition: {
         color: {
           modifier: "bold",
           type: "keyword",
-          value: "white"
+          value: "white",
         },
-        value: "on"
-      }
+        value: "on",
+      },
     },
     status: {
       color: {
         modifier: "bold",
         type: "hex",
-        value: "#0087ff"
-      }
-    }
+        value: "#0087ff",
+      },
+    },
   },
   host: {
     color: {
       modifier: "bold",
       type: "hex",
-      value: "#00afaf"
+      value: "#00afaf",
     },
     preposition: {
       color: {
         modifier: "bold",
         type: "keyword",
-        value: "white"
+        value: "white",
       },
-      value: "at"
-    }
+      value: "at",
+    },
   },
   newline: true,
   nodejs: {
     color: {
       modifier: "bold",
       type: "hex",
-      value: "#5f8700"
+      value: "#5f8700",
     },
     preposition: {
       color: {
         modifier: "bold",
         type: "keyword",
-        value: "white"
+        value: "white",
       },
-      value: "using"
+      value: "using",
     },
-    symbol: "Node"
+    symbol: "Node",
   },
   php: {
     color: {
       modifier: "bold",
       type: "hex",
-      value: "#5f5faf"
+      value: "#5f5faf",
     },
     preposition: {
       color: {
         modifier: "bold",
         type: "keyword",
-        value: "white"
+        value: "white",
       },
-      value: "using"
+      value: "using",
     },
-    symbol: "PHP"
+    symbol: "PHP",
   },
   previousExitCode: {
     color: {
       modifier: "bold",
       type: "hex",
-      value: "#af0000"
-    }
+      value: "#af0000",
+    },
   },
   prompt: ["user", "host", "directory", "git", "previousExitCode"],
   python: {
     color: {
       modifier: "bold",
       type: "hex",
-      value: "#af8700"
+      value: "#af8700",
     },
     preposition: {
       color: {
         modifier: "bold",
         type: "keyword",
-        value: "white"
+        value: "white",
       },
-      value: "using"
+      value: "using",
     },
-    symbol: "Python"
+    symbol: "Python",
   },
   ruby: {
     color: {
       modifier: "bold",
       type: "hex",
-      value: "#af0000"
+      value: "#af0000",
     },
     preposition: {
       color: {
         modifier: "bold",
         type: "keyword",
-        value: "white"
+        value: "white",
       },
-      value: "using"
+      value: "using",
     },
-    symbol: "Ruby"
+    symbol: "Ruby",
   },
   rust: {
     color: {
       modifier: "bold",
       type: "keyword",
-      value: "brown"
+      value: "brown",
     },
     preposition: {
       color: {
         modifier: "bold",
         type: "keyword",
-        value: "white"
+        value: "white",
       },
-      value: "using"
+      value: "using",
     },
-    symbol: "Rust"
+    symbol: "Rust",
   },
   symbol: {
     color: {
       modifier: "bold",
       type: "keyword",
-      value: "white"
+      value: "white",
     },
     newline: true,
-    value: "$"
+    value: "$",
   },
   user: {
     color: {
       modifier: "bold",
       type: "hex",
-      value: "#0087ff"
-    }
-  }
+      value: "#0087ff",
+    },
+  },
 };
