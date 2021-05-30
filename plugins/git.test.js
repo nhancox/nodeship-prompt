@@ -58,9 +58,9 @@ async function dirtyRepo(repoPath) {
   const unstagedFilePath = path.join(repoPath, unstagedFileName);
 
   await Promise.all([
-    fs.appendFile(modifiedFilePath, appendText),
-    fs.writeFile(stagedFilePath, stagedFileName),
-    fs.writeFile(unstagedFilePath, unstagedFileName),
+    fs.promises.appendFile(modifiedFilePath, appendText),
+    fs.promises.writeFile(stagedFilePath, stagedFileName),
+    fs.promises.writeFile(unstagedFilePath, unstagedFileName),
   ]);
 
   await git.add({ dir: repoPath, filepath: stagedFileName, fs });
