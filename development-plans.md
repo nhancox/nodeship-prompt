@@ -18,7 +18,6 @@ General:
 - Toggle counts of each type of status flag
 - Stash status (in a TODO)
 - Custom status flags (in a TODO)
-- Show SHA shorthand if detached (in a TODO)
 
 ### Proposed
 

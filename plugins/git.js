@@ -7,8 +7,18 @@ const color = require("../lib/color.js");
 
 async function getCurrentBranchName(repository) {
   const branch = await git.currentBranch({ dir: repository, fs });
-  // TODO: Returns `undefined` if HEAD is detached; maybe get shorthand hash?
-  return branch || "";
+
+  if (branch) {
+    return branch;
+  }
+
+  // In a detached HEAD state. Return the short hash of the current ref instead.
+  const reference = await git.resolveRef({
+    dir: repository,
+    fs,
+    ref: "HEAD",
+  });
+  return reference.substring(0, 7);
 }
 
 // On a clean repo with 129 files and `tokei`-measured ~39k LOC:

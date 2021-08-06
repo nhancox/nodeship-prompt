@@ -46,6 +46,26 @@ async function checkoutNewBranch(repoPath, branchName) {
   await git.branch({ checkout: true, dir: repoPath, fs, ref: branchName });
 }
 
+async function commitAndDetach(repoPath) {
+  const startingRef = await git.resolveRef({ dir: repoPath, fs, ref: "HEAD" });
+
+  const newFileName = "additional_file.txt";
+  const newFilePath = path.join(repoPath, newFileName);
+  await fs.promises.writeFile(newFilePath, newFileName);
+
+  await git.add({ dir: repoPath, filepath: newFileName, fs });
+
+  const author = {
+    email: "pilot@example.com",
+    name: "Pilot",
+  };
+  const message = "Second commit";
+  await git.commit({ author, dir: repoPath, fs, message });
+
+  await git.checkout({ dir: repoPath, fs, ref: startingRef });
+  return startingRef;
+}
+
 async function dirtyRepo(repoPath) {
   const modifiedFileName = INITIAL_FILE;
   const modifiedFilePath = path.join(repoPath, modifiedFileName);
@@ -76,12 +96,12 @@ async function setupDirtyRepo() {
   await dirtyRepo(DIRTY_REPO_PATH);
 }
 
-beforeAll(async () => {
+beforeEach(async () => {
   await fs.promises.mkdir(TEMP_GIT_FOLDER);
   await Promise.all([setupCleanRepo(), setupDirtyRepo()]);
 });
 
-afterAll(async () => {
+afterEach(async () => {
   await del(TEMP_GIT_FOLDER);
 });
 
@@ -94,6 +114,19 @@ test("prints the correct branch name", async () => {
   const gitPrompt = await gitPlugin(config);
 
   expect(gitPrompt).toBe(CLEAN_BRANCH_NAME);
+});
+
+test("prints the ref's short hash when in a detached HEAD state", async () => {
+  const config = {
+    environment: { currentWorkingDirectory: { path: CLEAN_REPO_PATH } },
+    git: { branch: {} },
+  };
+  const detachedReference = await commitAndDetach(CLEAN_REPO_PATH);
+  const shortHash = detachedReference.substring(0, 7);
+
+  const gitPrompt = await gitPlugin(config);
+
+  expect(gitPrompt).toBe(shortHash);
 });
 
 test("doesn't show status flags on a clean tree", async () => {
