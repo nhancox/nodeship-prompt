@@ -60,7 +60,12 @@ async function resolveConfig(previousExitCode, shell) {
   });
 
   if (userConfig) {
-    userConfig = JSON.parse(userConfig);
+    try {
+      userConfig = JSON.parse(userConfig);
+      // eslint-disable-next-line
+    } catch (err) {
+      // Error parsing config. Just use the default.
+    }
 
     for (const property in userConfig) {
       if (property !== "environment") {
