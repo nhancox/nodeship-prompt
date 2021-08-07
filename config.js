@@ -19,10 +19,6 @@ const USER_CONFIG_LOCATION = XDG_CONFIG_HOME || path.join(HOME, ".config");
 const NODESHIP_CONFIG = path.join(USER_CONFIG_LOCATION, "nodeship-prompt.json");
 
 async function getDefaultConfig(previousExitCode, shell) {
-  // TODO Should be able to optimize by skipping this. No state preserved
-  // between runs so the side effects don't matter.
-  const defaults = JSON.parse(JSON.stringify(defaultConfig));
-
   // TODO (PERF) should this be grouped with other `fs` operation?
   const directoryContents = await fs.readdir(CURRENT_WORKING_DIRECTORY, {
     withFileTypes: true,
@@ -37,7 +33,7 @@ async function getDefaultConfig(previousExitCode, shell) {
     }
   });
 
-  defaults.environment = {
+  defaultConfig.environment = {
     currentWorkingDirectory: {
       directories,
       files,
@@ -53,7 +49,7 @@ async function getDefaultConfig(previousExitCode, shell) {
     variables: SYSTEM_ENVIRONMENT_VARIABLES,
   };
 
-  return defaults;
+  return defaultConfig;
 }
 
 async function resolveConfig(previousExitCode, shell) {
